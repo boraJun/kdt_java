@@ -1,16 +1,13 @@
 package burger;
 
 public class Burger {
-//	버거종류
-//	버거가격
-//	세트여부
+	int burgerId;		//버거 id
+	String burgerName;	//버거 이름
+	int price;			//가격
 	
-	int burgerId;
-	String burgerName;
-	int price;
-	
-	boolean isSet;
+	boolean isSet;		//세트 여부
 
+	//생성자
 	public Burger(int burgerId, String burgerName, int price, boolean isSet) {
 		this.burgerId = burgerId;
 		this.burgerName = burgerName;
