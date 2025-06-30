@@ -24,7 +24,6 @@ public class Main {
 //			
 		// 반드시 오버라이딩 사용하며
 		// 생성자 호출, this, super 호출하는 코드 작성할 것
-		
 		Student s1 = new Student();
 		s1.introduce();
 		s1.sleep(23);

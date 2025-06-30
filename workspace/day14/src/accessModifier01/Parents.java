@@ -11,6 +11,7 @@ public class Parents {
 
 	public Parents() {
 		int a = 0;
+		
 	}
 	// 메소드
 //   접근제한자 리턴타입 메소드명(자료형 매개변수){}
