@@ -6,9 +6,12 @@ public class Lotto {
 	int[] numArr;
 	int[] lottoNumArr;
 	
+	static int MAX_LENGTH_LOTTO = 45;
+	static int LOTTO_NUM_LENGTH = 7;
+	
 	public Lotto() {
-		lottoNumArr = new int[7];
-		numArr = new int[45];
+		lottoNumArr = new int[LOTTO_NUM_LENGTH];
+		numArr = new int[MAX_LENGTH_LOTTO];
 		
 		initNumArr();
 	}
