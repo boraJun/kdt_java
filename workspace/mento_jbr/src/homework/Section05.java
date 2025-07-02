@@ -1,6 +1,6 @@
-package package05;
+package homework;
 
-public class Main {
+public class Section05 {
 	public static void main(String[] args) {
 		System.out.println("Section 5)");
 		System.out.println("예제 5-4. 이등변 삼각형 만들기 - 거꾸로");

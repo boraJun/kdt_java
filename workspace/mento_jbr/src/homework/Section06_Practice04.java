@@ -1,8 +1,8 @@
-package package06;
+package homework;
 
 import java.util.Arrays;
 
-public class Practice04 {
+public class Section06_Practice04 {
 
 	static void printMagicSquare(int rowCount, int colCount, int[][] magicSquare) {
 		System.out.print("행열\t");
