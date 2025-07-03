@@ -1,4 +1,4 @@
-package homework;
+package section05;
 
 public class Section05 {
 	public static void main(String[] args) {

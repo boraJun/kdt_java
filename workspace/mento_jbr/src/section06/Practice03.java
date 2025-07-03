@@ -1,4 +1,4 @@
-package homework;
+package section06;
 import java.util.Arrays;
 
 class GameController{
@@ -50,7 +50,7 @@ class GameController{
 	}
 }
 
-public class Section06_Practice03 {
+public class Practice03 {
 //	3. 조건 : 1~100까지 숫자 중 랜덤하게 10장 뽑기
 //	   메소드 정의하기
 	

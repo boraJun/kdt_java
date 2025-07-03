@@ -1,17 +1,15 @@
-package homework;
+package section06;
 
-import java.util.Arrays;
 
-public class Section06_Practice04 {
+public class Practice04 {
 
 	static void printMagicSquare(int rowCount, int colCount, int[][] magicSquare) {
 		System.out.print("행열\t");
-
 		for (int i = 0; i < colCount; i++) {
 			System.out.print(i + "\t");
 		}
 
-		System.out.println("합");
+		System.out.println("  합\n");
 
 		int[] sumCol = new int[colCount];
 		int diagonal1 = 0, diagonal2 = 0;
@@ -22,7 +20,7 @@ public class Section06_Practice04 {
 				if (j == -1)
 					System.out.print(i + "\t");
 				else if (j == magicSquare[i].length) {
-					System.out.print(sumRow);
+					System.out.print("  " + sumRow);
 				} else {
 					sumRow += magicSquare[i][j];
 					sumCol[j] += magicSquare[i][j];
@@ -38,13 +36,14 @@ public class Section06_Practice04 {
 			System.out.println();
 		}
 
+		System.out.println();
 		System.out.print("합 " + diagonal1);
 		
 		for (int i = 0; i < colCount; i++) {
 			System.out.print("\t" + sumCol[i]);
 		}
 
-		System.out.print("\t" + diagonal2);
+		System.out.print("\t  " + diagonal2);
 	}
 
 	static int[][] initMagicSquare(int rowCount, int colCount) {
@@ -59,17 +58,16 @@ public class Section06_Practice04 {
 			if (magicSquare[rowIdx][colIdx] == 0) {
 				magicSquare[rowIdx][colIdx] = i + 1;
 
-				previousRow = rowIdx;
-				previousCol = colIdx;
 			} else {
 				rowIdx = (previousRow + 1) % rowCount;
 				colIdx = previousCol;
 
 				magicSquare[rowIdx][colIdx] = i + 1;
-
-				previousRow = rowIdx;
-				previousCol = colIdx;
 			}
+
+			previousRow = rowIdx;
+			previousCol = colIdx;
+			
 			rowIdx = ((rowIdx - 1 < 0) ? rowCount - 1 : rowIdx - 1);
 			colIdx = (colIdx + 1) % colCount;
 		}
