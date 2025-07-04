@@ -18,7 +18,7 @@ public class LambdaMain {
 //		CombInter c2 = (str1, str2) -> str1 + str2;
 //		System.out.println(c2.combine("전", "보라"));
 		
-		CombInter c1 = new CombInter() {
+		CombInter1 c1 = new CombInter1() {
 			@Override
 			public void combine(String str1, String str2) {
 				System.out.println(str1 + str2);
@@ -26,8 +26,7 @@ public class LambdaMain {
 		};
 		c1.combine("전", "보라");
 		
-		
-		CombInter c2 = (str1, str2) -> System.out.println(str1 + str2);
+		CombInter1 c2 = (str1, str2) -> System.out.println(str1 + str2);
 		c2.combine("전", "보라");
 	}
 }
