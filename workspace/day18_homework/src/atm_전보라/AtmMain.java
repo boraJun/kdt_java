@@ -1,4 +1,4 @@
-package ATM;
+package atm_전보라;
 
 import java.io.IOException;
 import java.util.ArrayList;

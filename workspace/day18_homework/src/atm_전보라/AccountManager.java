@@ -1,4 +1,4 @@
-package ATM;
+package atm_전보라;
 
 import java.util.ArrayList;
 import java.util.HashMap;
