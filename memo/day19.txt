@@ -1,1 +1,234 @@
 day19(java 17일차)
+복습 -> 컬렉션 프레임워크(Map) -> DBMS -> 능단평2 시험
+
+0. 복습
+1) 람다식(Lambda)
+	익명 메소드, 람다식 : 메소드를 하나의 식으로 표현한다
+	함수형 인터페이스 : 단 하나의 추상메소드를 가지고 있는 인터페이스
+			@FunctionalInterface
+	매개변수(x), 리턴값(x) 실행문 1개만 있는 method1
+	인터페이스명 객체명 = () -> syso();
+
+	매개변수(o 1개), 리턴값(o) 실행문 1개만 있는 method2
+	인터페이스명 객체명 = 매개변수명 -> 매개변수명;
+
+	매개변수(o 2개), 리턴값(o) 실행문 2개 있는 method3
+	인터페이스명 객체명 = (매개변수1, 매개변수2) -> { syso(매개변수1 + 매개변수2);
+					return 매개변수1 + 매개변수2;
+				 };
+
+2) 예외처리
+	예외가 발생했을 때 프로그램이 비정상적으로 종료되는 것을 막고 정상적으로 실행될 수 있도록 처리하는 것을 의미
+	
+	try{
+		예외가 예상되는 코드
+	}catch (예외클래스명 참조변수){
+		예외 발생 시 실행할 코드
+	}catch (예외클래스명 참조변수){
+		예외 발생 시 실행할 코드
+	}finally {
+		예외 발생 여부에 상관없이 무조건 실행할 코드(생략 가능)
+	}
+
+- 예외 클래스에서 제공하는 메소드
+	.getMessage()		예외 메시지를 문자열로 반환
+	.toString()		발생한 예외객체를 문자열로 반환(생략가능 참조변수를 출력하면 자동으로 toString())
+	.printStackTrace()	예외 발생지점을 추적하여 단계별로 모두 출력함
+
+- throw, throws
+	throw	예외 강제 발생시키기(throw new 예외클래스명())
+	throws	예외 던지기, 메소드 선언부에 사용한다(접근제한자 리턴타입 메소드명() throws 예외클래스명 {})
+
+- 사용자 정의 예외클래스
+	Exception, RuntimeException
+	클래스명 + Exception
+
+3) Object 클래스
+	모든 클래스의 최상위 부모 클래스
+
+	.toString()	객체 문자 정보를 반환(리턴)
+	.equals()	객체의 번지를 비교하고 결과 반환(리턴)
+	.hashCode()	객체의 해시코드를 반환(리턴)
+	
+4) Wrapper 클래스
+	기본자료형들의 클래스 타입
+	
+	원시타입		참조타입
+	short		Short
+	byte		Byte
+	int		Integer
+	long		Long
+	double		Double
+	float		Float
+	boolean		Boolean
+	char		Character
+
+	
+- boxing
+	클래스타입 참조변수 = 클래스타입.valueOf(일반타입의 값);
+	클래스타입 참조변수 = 일반타입의 값;	//auto boxing
+
+- unboxing
+	일반타입 변수 = 객체.000Value();
+	일반타입 변수 = 객체;	//auto unboxing
+
+5) String 메소드
+	chartAt()
+	length()
+	indexOf()
+	split()
+	strip()
+	substring()
+	
+1. 컬렉션 프레임워크(JCF : Java Collection Framework)
+	많은 데이터를 쉽고 효과적으로 관리할 수 있는 표준화된 방법을 제공하는 클래스들의 집합
+
+1) 인터페이스 분류
+	컬렉션 인터페이스	List 인터페이스	순서o, 중복o	ArrayList
+			Set 인터페이스	순서x, 중복x	HashSet
+	Map 인터페이스			key-value	HashMap
+
+2) List 구현 클래스
+- ArrayList
+	List<E> 객체 = new ArrayList<E>();	//업캐스팅
+	ArrayList<E> 객체 = new ArrayList<E>();
+
+- 메소드
+	boolean add(E e)		리스트에 요소 추가
+	E set(int idx, E e)		주어진 인덱스 위치에 있는 요소를 다른 요소로 대체(수정)
+	E get(int idxs)			주어진 인덱스 위치에 있는 요소를 반환
+	boolean remove(Object o)	주어진 값을 삭제
+	boolean remove(int idx)		주어진 인덱스의 요소를 삭제
+	boolean contains(Object o)	주어진 객체가 리스트에 포함되어 있는지 여부 반환
+	int size()			리스트의 요소 개수를 반환
+	
+3) 제네릭(Generic)
+	결정되지 않은 타입을 파라미터로 처리하고 실제 사용할 때 구체적인 타입으로 대체시키는 기능
+	
+	클래스명<T> 참조변수 = new 생성자<>();
+
+	Iterator<T>	자바 컬렉션워크에서 많이 사용되며 컬렉션 내부의 요소들을 반복(iterator)하고자 할 때 사용한다
+
+=======================================================================
++) 제네릭과 관련된 고급 문법으로 특정 조건을 만족하는 타입만 허용하도록 제한함
+public static <T extends Comparable<? super T> void sort(List<T> list)
+	<T> : 제네릭 타입의 매개변수, 메소드를  호출할 때 구체적인 타입으로 치환된다
+	extends Comparable<? super T> : T는 Comparable 인터페이스를 구현하는 클래스여야한다
+	T는 Comparable 인터페이스를 구현한다
+	Comparable의 타입 매개변수는 T 또는 T의 상위 클래스를 허용한다
+	? super T : 제네릭 타입의 상속관계를 고려하여 T와 상위 타입간의 비교도 허용하기 위해서 사용한다
+
++) Comparator는 자바에서 객체를 비교하고 정렬하는데 사용되는 인터페이스
+	compare(T o1, T o2) : 두 개의 객체 o1과 o2를 비교하는 메소드
+		o1이 o2보다 작으면 음수를, o1이 o2보다 크면 양수, 두 객체가 같으면 0을 반환한다
+		두 객체의 비교 규칙을 정의할 수 있다
+=======================================================================
+
+4) Set
+	데이터의 순서를 보장하지 않는다
+	데이터의 중복을 허용하지 않는다
+	
+	Set<> 객체 = new HashSet<>(); //업캐스팅
+	HashSet<> 객체 = new HashSet<>();
+	
+- Set 메소드
+	add(E e) 		요소 추가(중복이면 추가되지 않음)
+	remove(Object o) 	특정 요소 제거
+	contains(Object o)	요소 존재 여부 확인
+	isEmpty()		비어있는지 확인
+	size()			요소 개수 반환
+	iterator()		반복자 반환(Iterator 사용)
+
+5) Iterator 반복자
+	컬렉션에 저장된 데이터를 순회하고 가져오기위한 인터페이스
+
+	iterator()	ArrayList, HashSet 등의 컬렉션 객체를 Iterator 타입으로 변환할 때 사용하는 메소드 
+	hasNext()	다음 값의 유무를 boolena 타입으로 반환
+	next()		다음 값을 가져온다, 아무 값도 없다면 예외 발생
+	
+2. Map
+	데이터의 순서를 보장하지 않는다
+	데이터를 key와 value 한 쌍으로 저장하여 key로 데이터 접근 할 수 있다
+	그러므로 key는 ArrayLst의 index와 비슷한 역할을 하며 중복을 허용하지 않는다(index에 중복이 없는 것과 동일)
+
+1) 구현클래스
+	HashMap
+	hashCode()가 반환하는 해시코드를 이용하며 검색속도가 상대적으로 빠르다
+	이미 저장된 key를 가진 한 쌍의 데이터를 넣으면 가장 마지막에 넣은 value로 수정된다(value는 수정가능하다)
+	저장되지 않은 key를 가진 한 쌍의 데이터를 넣으면 새롭게 추가된다
+	
+	Map<T> 겍체 = new HashMap<>();		//업캐스팅
+	HashMap<T> 객체 = new HashMap<>();	
+
+- HashMap 관련 메소드
+	put(K, V)	추가 메소드
+			K 중복 안됨(중복일 경우 Value만 변경)
+			V 중복 가능
+	remove(K, V)	삭제 메소드 삭제되면 true, 아니면 false 반환
+	remove(K)	삭제 메소드 해당하는 Value 반환되고 삭제
+	containsKey	containsValue	해당하는 값이 포함되어있는지 여부 반환
+	size()		Map 요소의 개수 반환
+- Iterator
+	keySet()	key 값들만 반환		Set 인터페이스가 반환타입
+	values()	values 값들만 반환		Collection 인터페이스가 반환타입
+	
+
+2) Hash : 데이터를 다루는 기법
+	키(key)는 해쉬함수(Hash Function)를 통해서 해시(Hash)로 변경되며 해시는 값(value)과 매칭되어 저장소에 저장된다
+	
+	key : 고유한 값이며 해시함수의 input이 된다, 다양한 길이의 값이 될 수 있다
+		이대로 최종 저장소에 저장이 되면 다양한 길이 만큼의 저장소를 구성해야하므로 해시함수로 값을 바꾸어 저장이 되어야 
+		공간의 효율성을 추구할 수 있다
+	Hash Function : key를 hash로 바꿔주는 역할을 한다
+		다양한 길이를 가지고 있는 key를 일정한 길이를 가지는 hash로 변경하여 저장소를 효율적으로 운영할 수 잇도록 도와준다
+		서로 다른 키(key)가 같은 해시(hash)가 되는 경우를 hash Collision이라고 하는데 해시 충돌을 일으키는 확률을
+		최대한 줄이는 함수를 만드는 것이 중요하다
+	Hash : 해시함수의 결과물, 저장소(buckent, slot)에서 값(value)과 매칭되어 저장된다
+	Value : 저장소(bucket, slot)에 최종적으로 저장되는 값으로 키와 매칭되어 저장, 삭제, 접근, 검색이 가능해야한다
+
++) HashMap, HashSet도 Hash라는 기법을 사용하여 데이터를 저장하고 관리한다
+	배열의 구조 가지는 일반 배열, ArrayList와 비교했을 때 양쪽 다 index번호를 사용한다는 점에서 빠른 속도를 가진다
+	배열의 구조는 내가 저장하는 값이 어느 index에 존재하는지 별도로 관리해줘야하지만 Hash를 사용하면 Key라는 것을 이용하여
+	자동으로 올바른 index를 찾아간다는 장점을 가지고 있다
+	
+	["사과"]["망고"]["포도"]
+
+3) HashTable
+	데이터를 효율적으로 저장하고 검색하는데 사용하는 자료구조
+	key와 value 쌍의 저장하며 key를 사용하여 값을 저장하고 검색할 수 있다
+	
+4) Entry
+	java 컬렉션 프레임워크에서 키-값 쌍을 표현하는 인터페이스
+	주로 Map 인터페이스와 함께 사용된다
+	
+	Entry<K, V>는 Map 인터페이스 내부에 정의된 중첩 인터페이스 Map.Entry<K, V>
+	한개의 키와 그에 대응하는 값을 저장하는 구조를 제공한다
+	Map의 모든 요소를 순회하거나 키와 값을 개별적으로 처리할 때 사용한다
+
+- Map.Entry의 메소드
+	k getKey()			엔트리의 키를 반환
+	v getValue()			엔트리의 값을 반호나
+	v setValue(V value)		엔트리의 값을 주어진 값으로 설정하고 이전 값을 반환
+	boolean equals(Object o)	다른 객체와 이 엔트리를 비교
+	int hashCode()			엔트리의 해시코드를 반환
+	entrySet()			Set<Map.Entry<K, V>> 형태로 Map의 모든 키와 값 쌍을 순회
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
