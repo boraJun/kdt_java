@@ -7,6 +7,7 @@ public class Student {
 	private int engScore;
 	private int korScore;
 
+	//점수 배열 인덱스 정보
 	public enum SCORE {
 		MATH(0), ENG(1), KOR(2);
 
@@ -17,7 +18,7 @@ public class Student {
 		int idx;
 	}
 
-	// 생성자
+	// 이름과 나이만 받는 생성자
 	public Student(String name, int age) {
 		this.name = name;
 		this.age = age;
@@ -51,7 +52,14 @@ public class Student {
 	}
 
 	// 학생의 점수를 저장하여 반환하는 메소드
-	public int[] addScore(int[] scoreArr) {
+	public int[] addScore(int[] scoreArr) throws ScoreRangeException {
+		for (int score : scoreArr) {
+			if (score < 0 || score > 100) {
+				//점수는 0점~100점 사이의 값이어야한다 예외 발생
+				throw new ScoreRangeException();
+			}
+		}
+
 		this.mathScore = scoreArr[SCORE.MATH.idx];
 		this.engScore = scoreArr[SCORE.ENG.idx];
 		this.korScore = scoreArr[SCORE.KOR.idx];
@@ -61,29 +69,39 @@ public class Student {
 		scores[SCORE.MATH.idx] = mathScore;
 		scores[SCORE.ENG.idx] = mathScore;
 		scores[SCORE.KOR.idx] = mathScore;
-
+		
+		//점수 반환
 		return scores;
 	}
 
+	// hashCode의 값은 나이로 반환
 	@Override
 	public int hashCode() {
 		return this.age;
 	}
-
+	
+	// 이름과 나이가 같을 경우 같은 객체로 판단
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Student) {
-			if ((this == obj) && (this.hashCode() == obj.hashCode())) {
-				return true;
-			}
-		}
+		if (obj == null)
+			return false;
+
+		String str1 = this.toString();
+		String str2 = obj.toString();
+
+		if(str1.length() != str2.length())
+			return false;
 		
-		return false;
+		for (int i = 0; i < str1.length(); i++) {
+			if (str1.charAt(i) != str2.charAt(i))
+				return false;
+		}
+
+		return this.hashCode() == obj.hashCode();
 	}
 
 	@Override
 	public String toString() {
 		return this.name;
 	}
-
 }
