@@ -67,8 +67,8 @@ public class Student {
 		int[] scores = new int[3];
 
 		scores[SCORE.MATH.idx] = mathScore;
-		scores[SCORE.ENG.idx] = mathScore;
-		scores[SCORE.KOR.idx] = mathScore;
+		scores[SCORE.ENG.idx] = engScore;
+		scores[SCORE.KOR.idx] = korScore;
 		
 		//점수 반환
 		return scores;
@@ -83,25 +83,42 @@ public class Student {
 	// 이름과 나이가 같을 경우 같은 객체로 판단
 	@Override
 	public boolean equals(Object obj) {
+
+		//System.out.println("this == obj : " + (this == obj)); 
+		//System.out.println("this.name.equals(obj.toString()) : " + this.name.equals(obj.toString()));
 		if (obj == null)
 			return false;
-
-		String str1 = this.toString();
-		String str2 = obj.toString();
-
-		if(str1.length() != str2.length())
-			return false;
 		
-		for (int i = 0; i < str1.length(); i++) {
-			if (str1.charAt(i) != str2.charAt(i))
+		if(obj instanceof Student) {
+			if(!this.name.equals(((Student) obj).getName()))
 				return false;
 		}
-
-		return this.hashCode() == obj.hashCode();
+		
+		return this.hashCode() != obj.hashCode();
+		
+//		String str1 = this.toString();
+//		String str2 = obj.toString();
+//
+//		if(str1.length() != str2.length())
+//			return false;
+//		
+//		for (int i = 0; i < str1.length(); i++) {
+//			if (str1.charAt(i) != str2.charAt(i))
+//				return false;
+//		}
+		
+		//return this.hashCode() == obj.hashCode();
 	}
 
 	@Override
 	public String toString() {
-		return this.name;
+		return "Student [name=" + name + ", age=" + age + ", mathScore=" + mathScore + ", engScore=" + engScore
+				+ ", korScore=" + korScore + "]";
 	}
+
+//	@Override
+//	public String toString() {
+//		return this.name;
+//	}
+	
 }

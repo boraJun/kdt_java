@@ -1,6 +1,7 @@
 package day20_전보라;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,6 +26,9 @@ public class StuMain {
 			} catch (NumberFormatException e) {
 				System.out.println("숫자를 입력하세요");
 				continue;
+			} catch(Exception e) {
+				System.out.println("다시 입력하세요");
+				continue;
 			}
 
 			Student student = new Student(name, age);
@@ -36,6 +40,9 @@ public class StuMain {
 			} catch (NumberFormatException e) {
 				System.out.println("숫자를 입력하세요");
 				continue;
+			} catch(Exception e) {
+				System.out.println("다시 입력하세요");
+				continue;
 			}
 		}
 
@@ -43,7 +50,7 @@ public class StuMain {
 	}
 	
 	//객체를 리스트에 추가 또는 객체 메소드 호출
-	static void addStudentList(Scanner sc, ArrayList<Student> studentList, Student student)  throws RuntimeException, ScoreRangeException{
+	static void addStudentList(Scanner sc, ArrayList<Student> studentList, Student student)  throws Exception{
 		int[] score = inputStudentScore(sc);
 
 		student.addScore(score);
